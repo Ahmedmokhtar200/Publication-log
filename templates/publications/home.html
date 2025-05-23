@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block main_block %}
+    {% include 'publications/partials/navbar.html' %}
+
+    <style>
+
+        /* Button Customization */
+        .btn-primary {
+            background-color: #FED136;
+            border: none;
+        }
+        .btn-primary:hover {
+            background-color: #e0a800;
+        }
+
+        /* Articles Section */
+        .articles-section {
+            margin-top: 20px;
+            padding-bottom: 100px; /* Ensure enough space for scrolling */
+            overflow-y: auto;
+        }
+    </style>
+    <!-- Header Image -->
+    <div class="header-image">
+        <!-- Add any additional content or text here -->
+        <img src="{% static 'images/homepage/home.jpeg' %}" alt="">
+    </div>
+
+
+    <!-- Main Text -->
+    <div class="fText">
+        <h1>The Bibliotheca Alexandrina Supercomputing Facility</h1>
+        <h3>The Supercomputing Facility</h3>
+    </div>
+
+    <!-- Search Section -->
+    <div class="search-section container mt-5 p-4 bg-white shadow">
+        <h2 class="mb-4">Search For Articles:</h2>
+        
+        <form class="d-flex flex-wrap justify-content-between" method="get" action="{% url 'publications:search_publication' %}">
+            <input type="text" class="form-control me-2 mb-2" placeholder="Title" >
+            <input type="text" class="form-control me-2 mb-2" placeholder="Author" >
+            <button type="submit" class="btn btn-primary mb-2" id="special">Search</button>
+        </form>
+    </div>
+
+
+    <div class="container mt-5 articles-section">
+        <div class="row">
+            <div class="col-12">
+                <h3>Articles</h3>
+
+                <div class="card mb-3">
+                        {% for publication in publications %}
+                    <div class="card-body">
+                        <h5 class="card-title">{{ publication.title }}</h5>
+{#                        <p class="card-text">Article 1</p>#}
+                        <span>
+                            <a href="{% url 'publications:show' publication.id %}" class="btn btn-primary">Read More</a>
+                        
+                        </span>
+                        	
+                    </div>
+                        {% endfor %}
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+
+{% block main_block %}
+    <div id="collaborator-forms" class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="custom-form-container p-4 shadow bg-light rounded">
+                    <h2 class="text-center mb-4">Add Collaborator Emails</h2>
+                    <form id="collaborator-form" action="{% url 'projects:collaborator' project_id=project_id %}" method="post" class="needs-validation" novalidate>
+                        {% csrf_token %}
+
+                        {# Loop through emails if they exist (for re-rendered form with errors) #}
+                        {% for email in emails %}
+                            <div class="mb-3">
+                                <label for="email{{ forloop.counter }}" class="form-label">Email {{ forloop.counter }}</label>
+                                <input type="email" class="form-control" name="email{{ forloop.counter }}" id="email{{ forloop.counter }}" value="{{ email }}" required>
+                            </div>
+                        {% endfor %}
+
+                        {# If no emails exist, show one empty input #}
+                        {% if not emails %}
+                            <div class="mb-3">
+                                <label for="email1" class="form-label">Email</label>
+                                <input type="email" class="form-control" name="email1" id="email1" required>
+                            </div>
+                        {% endif %}
+                    </form>
+
+                    <div class="invalid-emails">
+                        {# Display error message if any #}
+                        {% if error_message %}
+                            <div class="alert alert-danger">{{ error_message }}</div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {# Add Email Button, Submit, and Cancel outside the form #}
+        <div id="collaborator-bottom" class="text-center mt-4">
+            <button type="button" class="btn btn-success" onclick="newInput()" id="add-email-button">Add Email</button>
+            <button type="button" class="btn btn-primary" id="submit-all" onclick="submitForm()">Next</button>
+            <button type="button" class="btn btn-danger" id="cancel-email-button" onclick="removeLastLabelAndInput()">Cancel</button>
+        </div>
+    </div>
+
+    <script>
+        let id = 2;  // Start with 2 because the first input is already present.
+
+        function newInput() {
+            // Get the form container where new elements will be appended
+            let formContainer = document.getElementById("collaborator-forms").querySelector("form");
+
+            // Create a new label
+            let label = document.createElement("label");
+            label.setAttribute("for", "email" + id);
+            label.textContent = "Email " + id;
+            label.classList.add("form-label");
+
+            // Create a new input
+            let input = document.createElement("input");
+            input.type = "email";
+            input.id = "email" + id;
+            input.name = "email" + id;
+            input.classList.add("form-control", "mb-3");
+            input.required = true;
+
+            // Append the new label and input to the form container
+            formContainer.appendChild(label);
+            formContainer.appendChild(input);
+
+            // Increment the id for the next label and input
+            id += 1;
+        }
+
+        function removeLastLabelAndInput() {
+            // Select all labels and inputs where the name starts with 'email'
+            const labels = document.querySelectorAll("label[for^='email']");
+            const inputs = document.querySelectorAll("input[id^='email']");
+
+            // Remove the last label and input if they exist
+            if (labels.length > 1 && inputs.length > 1) {  // Keep at least the first one
+                labels[labels.length - 1].remove();  // Remove the last label
+                inputs[inputs.length - 1].remove();  // Remove the last input
+            }
+        }
+
+        function submitForm() {
+            document.getElementById('collaborator-form').submit();
+        }
+    </script>
+{% endblock %}

@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block main_block %}
+
+    <form method="post" enctype="multipart/form-data" autocomplete="on">
+        {% csrf_token %}
+        
+        <div>
+            <div>
+                <label for="{{ form.title.id_for_label }}">{{ form.title.label }}</label>
+                {{ form.title }}
+                
+            </div>
+            <div>
+                <label for="{{ form.summary.id_for_label }}">{{ form.summary.label }}</label>
+                {{ form.summary }}
+                
+            </div>
+            <div>
+                <label for="{{ form.scientific_case.id_for_label }}">{{ form.scientific_case.label }}</label>
+                {{ form.scientific_case }}
+                
+            </div>
+            
+            
+            
+        </div>
+{#            #}
+{##}
+{#        </div>#}
+            <button type="reset">reset</button>
+            <button type="submit">next</button>
+    
+
+    </form>
+
+{#    <script type="text/javascript">#}
+{#        const resultBox = document.querySelector(".result-box");#}
+{#        const inputBox = document.getElementById("email-input");#}
+{##}
+{#        inputBox.onkeyup = function() {#}
+{#            let results = []#}
+{#            let input = inputBox.value;#}
+{##}
+{#            if (input.length) {#}
+{#                // Make an AJAX request to your Django view#}
+{#                const url = `{% url 'suggest-email' %}?email=${input}`#}
+{#                return new Promise(resolve => {#}
+{#                    fetch(url)#}
+{#                        .then(response=> response.json())#}
+{#                        .then(data=>{#}
+{#                            console.log(data)#}
+{#                            resolve(data.data)#}
+{#                        })#}
+{#                    }#}
+{#                    #}
+{#                    #}
+{#                ) #}
+{#            }#}
+{#        }#}
+{#    </script>#}
+
+{% endblock %}

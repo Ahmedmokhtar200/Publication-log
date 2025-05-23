@@ -1,0 +1,65 @@
+{% extends "account/base.html" %}
+
+{% load i18n %}
+{% load allauth %}
+{% load static %}
+
+{% block content %}
+    <style>
+        /* Custom styling to improve appearance */
+        .auth-container {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 2rem;
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .auth-title {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .auth-description {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .auth-button {
+            width: 100%;
+        }
+    </style>
+
+    <div class="container">
+        <div class="auth-container">
+            <!-- Title Section -->
+            {% if process == "connect" %}
+                <h1 class="auth-title">
+                    {% blocktrans with provider.name as provider %}Connect {{ provider }}{% endblocktrans %}
+                </h1>
+                <p class="auth-description">
+                    {% blocktrans with provider.name as provider %}You are about to connect a new third-party account from {{ provider }}.{% endblocktrans %}
+                </p>
+            {% else %}
+                <h1 class="auth-title">
+                    {% blocktrans with provider.name as provider %}Sign In Via {{ provider }}{% endblocktrans %}
+                </h1>
+                <p class="auth-description">
+                    {% blocktrans with provider.name as provider %}You are about to sign in using a third-party account from {{ provider }}.{% endblocktrans %}
+                </p>
+            {% endif %}
+
+            <!-- Form Section -->
+            <form method="post" class="mt-4">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <button type="submit" class="btn btn-primary auth-button">
+                        {% trans "Continue" %}
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+{% endblock content %}

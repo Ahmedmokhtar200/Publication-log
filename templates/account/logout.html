@@ -1,0 +1,54 @@
+{% extends "account/base.html" %}
+
+{% load i18n %}
+
+{% block content %}
+    <style>
+        /* Custom styling to improve appearance */
+        .auth-container {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 2rem;
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .auth-title {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .auth-description {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .auth-button {
+            width: 100%;
+        }
+    </style>
+
+    <div class="container">
+        <div class="auth-container">
+            <!-- Title Section -->
+            <h1 class="auth-title">{% trans "Sign Out" %}</h1>
+
+            <p class="auth-description">{% trans 'Are you sure you want to sign out?' %}</p>
+
+            <!-- Form Section -->
+            <form method="post" action="{% url 'account_logout' %}">
+                {% csrf_token %}
+                {% if redirect_field_value %}
+                    <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
+                {% endif %}
+                <div class="mb-3">
+                    <button type="submit" class="btn btn-danger auth-button">
+                        {% trans 'Sign Out' %}
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+{% endblock %}

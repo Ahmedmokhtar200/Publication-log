@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block main_block %}
+    <style>
+        
+    </style>
+    {% include 'publications/partials/navbar.html' %}
+
+        {% if user.is_authenticated %}
+                <div class="dashboard-container">
+                    <div class="row">
+                        <div class="col">
+                            <h1>Welcome back, {{ user.first_name }}</h1>
+                            <button class="btn btn-danger" id="cp1"><a href="{% url 'projects:create' %}">Create Project</a></button>
+                        </div>
+                    </div>
+                </div>
+        {% endif %}
+
+        <div class="research">
+            {% for project_info, publications in project_publication %}
+                <div class="project-box">
+                    <h4>{{ project_info.title }}</h4>
+                    <button class="btn btn-custom"><a href="{% url 'projects:edit' project_info.id %}" class="btn btn-custom">Edit project</a></button>
+
+                    <a href="{% url 'publications:create' project_info.id %}" class="btn-create-publication">Create Publication</a>
+                    <a href="{% url 'projects:delete' project_info.id %}" class="btn btn-danger btn-delete-publication" >Delete Project</a>
+                    {% if publications %}
+                        {% for publication in publications %}
+                            <div class="publication-section">
+                                <ul class="publication-list">
+                                <li>
+                                    <a href="{% url 'publications:show' publication.id %}" class="publication-link">{{ publication.title }}</a>
+                                </li>
+                                </ul>
+                                <div class="delete-publication" style="display: flex; align-content: flex-end;justify-content: flex-end" >
+                                    
+                                    <a href="{% url 'publications:delete' project_info.id %}" class="btn btn-danger btn-delete-publication">Delete Publication</a>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+    
+
+
+
+{% endblock %}

@@ -1,0 +1,151 @@
+/* Main container for the publication */
+.publication-card {
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 20px 0;
+    font-family: Arial, sans-serif;
+}
+
+/* Title of the publication */
+.publication-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+/* Abstract and metadata */
+.publication-details {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 15px;
+}
+
+.publication-metadata {
+    font-size: 12px;
+    color: #888;
+}
+
+/* Author list styling */
+.authors-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.author {
+    background-color: #eef2f3;
+    padding: 5px 10px;
+    border-radius: 5px;
+    color: #0073e6;
+    font-size: 14px;
+}
+
+/* PDF and cite buttons */
+.publication-actions {
+    display: flex;
+    gap: 15px;
+}
+
+.publication-actions .btn {
+    padding: 10px 20px;
+    text-align: center;
+    color: white;
+    border-radius: 5px;
+    font-weight: bold;
+}
+.btn-pdf {
+    background-color: #cd0d0d;  /* More vibrant red */
+    color: white;               /* White text color */
+    padding-right: 20px;
+    padding-left: 20px;
+    border-radius: 8px;         /* Slightly more rounded corners */
+    text-decoration: none;      /* Remove underline from the link */
+    display: inline-block;      /* Ensure it behaves like a button */
+    font-weight: bold;          /* Make the text bold */
+    font-size: 16px;            /* Increase font size for bigger text */
+    border: none;               /* Remove any default button borders */
+    cursor: pointer;            /* Change cursor to pointer */
+
+}
+
+.btn-pdf:hover {
+    background-color: #cc0000;  /* Darker red on hover */
+}
+
+.btn-pdf i {
+    margin-right: 8px;          /* Add more space between icon and text */
+    color: white;               /* Make the icon white */
+}
+
+.btn-pdf a {
+    color: white;               /* Ensure link inside button remains white */
+    text-decoration: none;      /* Remove underline from link */
+    display: inline-block;      /* Make sure link behaves like button content */
+    padding: 30px 60px;
+}
+
+.btn-pdf a:hover {
+    color: white;               /* Ensure color stays white on hover */
+}
+
+.btn-dio {
+    background-color: darkgoldenrod;      /* Dio's golden color */
+    color: black;                  /* Bold black text */
+    padding: 20px 40px;            /* Large, imposing button */
+    border-radius: 10px;           /* Slightly rounded corners */
+    text-decoration: none;         /* No underline for the link */
+    display: inline-block;         /* Behaves like a button */
+    font-weight: bold;             /* Strong bold text */
+    font-size: 18px;               /* Large text for a bold statement */
+    border: 2px solid black;       /* Black border for contrast */
+    cursor: pointer;               /* Pointer cursor for button */
+    text-transform: uppercase;     /* Uppercase letters for emphasis */
+    letter-spacing: 2px;           /* Extra spacing for dramatic effect */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3); /* Slight shadow for depth */
+}
+
+.btn-dio:hover {
+    background-color: darkgoldenrod;  /* Darker shade of gold on hover */
+    color: white;                     /* Change text color on hover */
+    border-color: white;              /* White border on hover */
+}
+
+.btn-dio i {
+    margin-right: 10px;            /* Space between icon and text */
+    color: black;                  /* Black icon to match text */
+}
+
+.btn-dio a {
+    color: black;                  /* Ensure link inside button is black */
+    text-decoration: none;         /* No underline */
+    display: inline-block;         /* Allow link content to behave like a button */
+}
+
+.btn-dio a:hover {
+    color: white;                  /* White text when hovering */
+}
+
+
+
+.btn-cite {
+    background-color: #5bc0de;
+}
+
+.publication-conference {
+    margin-top: 15px;
+    padding: 10px;
+    background-color: #f8f9fa; /* Light background to make it stand out */
+    border-left: 4px solid #007bff; /* Add a left border for emphasis */
+    font-style: italic;
+    color: #333; /* Text color */
+    font-size: 1.1em;
+    font-weight: bold;
+}
+
+.publication-conference span {
+    display: block; /* Ensure the content stays on its own line */
+}

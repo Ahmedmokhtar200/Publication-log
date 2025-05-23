@@ -1,0 +1,116 @@
+/* Body and General Styles */
+body {
+    background-color: #D9D9D9;
+    height: 100vh;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow-x: hidden; /* Ensure no horizontal scroll */
+    overflow-y: auto; /* Allow vertical scrolling */
+}
+
+/* Search Section */
+.search-section {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    z-index: 2;
+    position: relative;
+    margin-top: 150px; /* Add margin to avoid overlap with header */
+}
+
+/* Input Fields */
+.search-section input {
+    width: 48%;
+    margin-bottom: 10px;
+}
+
+/* Button Customization */
+.btn-primary {
+    background-color: #FED136;
+    border: none;
+}
+.btn-primary:hover {
+    background-color: #e0a800;
+}
+
+/* Articles Section */
+.articles-section {
+    margin-top: 20px;
+    padding-bottom: 100px; /* Ensure enough space for scrolling */
+    overflow-y: auto;
+}
+
+.card {
+    background-color: white;
+    border-radius: 5px;
+    padding: 15px;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+/* Ensure footer doesn't overlap content */
+footer {
+    position: relative;
+    width: 100%;
+    padding: 20px 0;
+    background-color: #687063;
+    color: white;
+    text-align: center;
+    margin: 0 50px;
+}
+
+#special{
+    width: 100%;
+}
+
+
+
+/* Main Text on Header */
+.fText {
+    color: white;
+    position: absolute;
+    text-align: left;
+    left: 50px;
+    top: 100px;
+    z-index: 1;
+}
+
+
+/* Header Section */
+.btext {
+    padding-left: 10px;
+    color: #FED136;
+}
+.stext {
+    padding-left: 10px;
+    color: white;
+}
+
+
+.header-image {
+    position: relative; /* For positioning child elements if needed */
+    width: 100%; /* Full width */
+    height: 50%; /* Maintain aspect ratio */
+    overflow: hidden; /* Hide any overflow */
+    background-size: cover;
+    z-index: 0;
+    background-position: center;
+}
+
+.header-image img {
+    width: 100%; /* Make the image take the full width */
+    height: auto; /* Maintain aspect ratio */
+    object-fit: cover; /* Cover the area without stretching */
+}
+
+.card-body{
+    margin: 0 20px;
+}
+
+

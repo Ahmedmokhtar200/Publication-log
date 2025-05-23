@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block main_block %} 
+    
+{% for project in object_list %}  
+    <p>{{ project }}</p>
+{% endfor %}
+    
+{% endblock %}

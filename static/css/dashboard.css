@@ -1,0 +1,134 @@
+.btext {
+    padding-left: 10px;
+    color: #FED136;
+}
+
+.stext {
+    padding-left: 10px;
+    color: white;
+}
+
+.research {
+    padding: 20px;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.project-box {
+    background-color: white;
+    border-radius: 8px;
+    padding: 20px;
+    /*margin-bottom: 20px;*/
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.button-group {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 10px;
+}
+
+.btn-custom {
+    background-color: #FED136;
+    color: #FED136;
+    margin-right: 10px;
+}
+
+.btn-danger {
+    background-color: #FF3B30;
+    color: black;
+}
+#cp1 {
+    background-color: #FED136;
+    border: none;
+    text-decoration: none;
+    color: white;
+}
+
+#cp1 a{
+    background-color: #FED136;
+    border: none;
+    text-decoration: none;
+    color: white;
+}
+
+#cp2{
+    background-color: #687063;
+    border: none;
+    color: white;
+}
+
+
+.dashboard-container {
+    padding-top: 70px; /* Add space equal to or greater than the header height */
+    margin-top: 100px;
+    margin-right: 50px;
+    text-align: center;
+}
+
+.research {
+    padding: 20px;
+    max-height: 400px;
+    overflow-y: auto;
+    /* Optionally add a top margin if needed */
+    margin-top: 20px; /* This can be adjusted */
+}
+
+
+/*.container {*/
+/*    padding-top: 70px; !* Add padding equal to header height + any additional space *!*/
+/*}*/
+
+.research {
+    padding: 20px;
+    max-height: 400px;
+    overflow-y: auto;
+    margin-top: 20px; /* Optional */
+}
+
+.project-box {
+    background-color: white;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Remove bullet points from the ul */
+.publication-list {
+    list-style-type: none; /* Removes bullets */
+    padding-left: 0; /* Removes default padding from ul */
+}
+
+/* Customize the publication links */
+.publication-link {
+    color: #007bff; /* Set the link color */
+    text-decoration: none; /* Remove underline */
+    font-weight: bold; /* Make the link bold */
+    padding: 0.5rem 0; /* Add some padding around the links */
+    display: block; /* Make the link fill the list item */
+    margin-left: 20px;
+}
+
+/* On hover, change the link appearance */
+.publication-link:hover {
+    color: #0056b3; /* Darker blue on hover */
+    text-decoration: underline; /* Underline on hover */
+}
+
+/* Add custom styling for the Create Publication button */
+.btn-create-publication {
+    display: inline-block;
+    background-color: white;
+    color: black;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 16px;
+}
+.btn-delete-publication {
+
+}
+/*.btn-create-publication:hover {*/
+/*    background-color: #218838; !* Darker green on hover *!*/
+/*}*/

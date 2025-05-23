@@ -1,0 +1,29 @@
+
+{% block main_block %}
+    
+{% url 'collaborator' as collaborator_url %}
+{% url 'check-email' as check-email_url %}
+
+    
+    <form hx-post="{% url 'collaborator' human_id project.id %}"
+          hx-trigger="click from:#submit-all" enctype="multipart/form-data" hx-sync="closest form:abort">
+
+        {% csrf_token %}
+        <div id="collaborates-emails">
+            <label >{{ form.email.label }}</label>
+            
+            <input type="text" id="email{{ counter }}" 
+                   name="email"
+                   hx-get="{% url 'check-email' %}"
+                   hx-swap="innerHTML"  hx-trigger="keyup">
+            
+            <button type="button" style="color: #a41515" id="cancel-email-button" name="cancel"
+                    hx-on:click="this.closest('form').remove()">
+                Cancel</button>
+            <span id="span{{ counter }}"></span>
+            <input type="hidden" name="counter" value="{{ counter }}">
+        </div>
+
+    </form>
+{% endblock %}
+

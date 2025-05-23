@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% block main_block %}
+{% load static %}
+
+
+    <div class="publication-card">
+        <h2 class="publication-title">
+            {{ publication.title }}
+        </h2>
+        
+        <div class="publication-image">
+            {% if publication.image %}
+                <img src="{{ publication.image.url }}" alt="publication-image">
+            {% endif %} 
+        </div>
+        <div class="publication-conference">
+            <span>Conference: {{ publication.conference }}</span>
+        </div>
+    
+        <div class="authors-list">
+            <span class="author">
+            Authors:
+            {% for author in authors %}
+                {{ author }}	
+            	
+            {% endfor %}
+            </span>
+        </div>
+
+
+        <div class="publication-details">
+            <p>{{ project_info.scientific_case }}</p>
+            <p>{{ project_info.summary }}</p>
+            
+        </div>
+
+
+        <div class="publication-actions">
+            {% if publication.file %}
+                <button class="btn-pdf">
+                    <a href="{% url 'publications:download_publication_file' publication.id %}"style="color: white" >
+                
+                    <i class="fa-regular fa-file-pdf"></i>
+                    PDF</a>
+                </button>
+            {% endif %} 
+            
+
+    
+            <button class="btn-dio">
+                <a href="{{ publication.url }}" class="btn btn-cite">
+                    
+                    <i class="fa-regular fa-file" style="color: #1b1b1b"></i>
+                    <span style="color: #1b1b1b">
+                        
+                        DIO
+                    </span>
+                </a>
+            </button>
+        </div>
+    </div>
+    
+{% endblock %}
+
+TestPass@1234

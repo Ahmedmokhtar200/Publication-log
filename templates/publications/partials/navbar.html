@@ -1,0 +1,33 @@
+{% load static %}
+
+
+<!-- Header -->
+<header class="header">
+    <div class="btext">
+        <h4>BA-HBC</h4>
+        <h6 style="color: white; text-decoration: none;"><a style="text-decoration: none;color: white" href="{% url 'publications:home' %}">The Supercomputing Facility</a></h6>
+    </div>
+{#    <div class="stext">#}
+{#    </div>#}
+
+    <nav class="nav-menu">
+        <ul>
+            {% if user.is_authenticated %}
+                <li class="nav-item">
+                
+                    <a class="nav-link" href="{% url 'publications:dashboard' %}">Dashboard</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'account_logout' %}">Logout</a>
+                </li>
+            {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'account_login' %}">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'account_signup' %}">Signup</a>
+                </li>
+            {% endif %}
+        </ul>
+    </nav>
+</header>

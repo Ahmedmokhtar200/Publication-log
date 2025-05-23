@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+{% block main_block %}
+    <style>
+        .custom-submit-button {
+            background-color: #fbc02d;
+            color: white;
+            font-size: 18px;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .custom-submit-button:hover {
+            background-color: #f9a825;
+        }
+
+    </style>
+    <div id="project-form">
+        <div class="container d-flex justify-content-center align-items-center vh-100">
+            <div class="custom-login-container shadow p-4 rounded bg-light">
+                <h2 class="text-center mb-4">Submit Your Research Paper</h2>
+                <form method="post" enctype="multipart/form-data" action="{% url 'projects:edit' project_info.id%}" novalidate>
+                    {% csrf_token %}
+
+                    <div class="mb-3">
+                        {% render_field form.title class="form-control custom-input-field" placeholder="Enter Title"%}
+                        {% if form.title.errors %}<p><strong style="color: #a41515">{{ form.title.errors }}</strong></p>{% endif %}
+                    </div>
+                    <div class="mb-3">
+                        {% render_field form.summary class="form-control custom-input-field" placeholder="Enter Summary"%}
+                        {% if form.summary.errors %}<p><strong style="color: #a41515">{{ form.summary.errors }}</strong></p>{% endif %}
+                    </div>
+                    <div class="mb-3">
+                        {% render_field form.scientific_case class="form-control custom-input-field" placeholder="Enter Scientific Case"%}
+                        {% if form.scientific_case.errors %}<p><strong style="color: #a41515">{{ form.scientific_case.errors }}</strong></p>{% endif %}
+                    </div>
+                    <!-- Submit Button -->
+                    <div class="d-grid">
+                        <button type="submit" class="btn custom-submit-button">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+
+{% endblock %}

@@ -1,0 +1,122 @@
+{% extends 'base.html' %}
+
+{% block main_block %}
+    <p>{% for collaborator in collaborators %}
+    	{{ collaborator.email }}
+    {% empty %}
+    	
+    {% endfor %}
+    </p>
+    {#try form has id collaborator-forms #}
+    <div id="collaborator-forms">
+        <form id="collaborator-form" action="{% url 'projects:edit_collaborators' project_info_id=project_info_id %}" method="post">
+            {% csrf_token %}
+            {# Loop through emails if they exist (for when the form is re-rendered due to an error) #}
+            {% for email in emails %}
+                <label>Email</label>
+                <input type="text" name="email{{ forloop.counter }}" value="{{ email }}" style="display: block">
+            {% endfor %}
+
+            {# If no emails exist, show one empty input #}
+            {% if not emails %}
+
+                <label for="email1" style="display: block">Email</label>
+                <input type="text" name="email1" id="email1" style="display: block">
+            {% endif %}
+        </form>
+    </div>
+    {#add email#}
+    <div id="collaborator-bottom">
+        <button type="button"
+                class="emailbttn"
+                onclick="newInput()"
+                id="add-email-button">
+            Add Email
+        </button>
+        <!-- Button to submit the form (outside the form) -->
+        <button type="button" id="submit-all" onclick="submitForm()">Next</button>
+
+        <button type="button" style="color: #a41515" id="cancel-email-button" name="cancel"
+                onclick="removeLastLabelAndInput()">Cancel</button>
+
+    </div>
+    <div class="invalid-emails">
+        {# Display error message if any #}
+        {% if error_message %}
+            <div class="error">{{ error_message }}</div>
+        {% endif %}
+    </div>
+
+
+    <script>
+        let id = 2;  // Start with 2 because the first label and input are manually added
+
+        function newInput() {
+            // Get the form container where new elements will be appended
+            let formContainer = document.getElementById("collaborator-forms").querySelector("form");
+
+            // Create a new label
+            let label = document.createElement("label");
+            label.setAttribute("for", "email" + id);
+            label.textContent = "Email ";
+
+            // Create a new input
+            let input = document.createElement("input");
+            input.type = "text";
+            input.id = "email" + id;
+            input.name = "email" + id;
+            input.style.display = "block";
+
+            // Append the new label and input to the form container
+            formContainer.appendChild(label);
+            formContainer.appendChild(input);
+
+            // Increment the id for the next label and input
+            id += 1;
+        }
+
+        function removeLastLabelAndInput() {
+            // Select all labels and inputs where the name starts with 'email'
+            const labels = document.querySelectorAll("label[for^='email']");
+            const inputs = document.querySelectorAll("input[id^='email']");
+
+            // Remove the last label and input if they exist
+            if (labels.length > 1 && inputs.length > 1) {  // Keep at least the first one
+                labels[labels.length - 1].remove();  // Remove the last label
+                inputs[inputs.length - 1].remove();  // Remove the last input
+            }
+        }
+
+        function submitForm() {
+            document.getElementById('collaborator-form').submit();
+        }
+    </script>
+    {#    <script>#}
+    {##}
+    {#        #}
+    {#        document.addEventListener("DOMContentLoaded", function () {#}
+    {#            let emailCounter = 1;  // Initialize a counter for the emails#}
+    {##}
+    {#            // Function to update input ids after adding a new email field#}
+    {#            function updateEmailInputIds() {#}
+    {#                // Select all inputs with name 'email' inside the form#}
+    {#                const emailInputs = document.querySelectorAll("#collaborator-forms input[name='email']");#}
+    {##}
+    {#                emailInputs.forEach((input, index) => {#}
+    {#                    // Set the id as 'email1', 'email2', etc. based on the index#}
+    {#                    input.id = 'email' + (index + 1);#}
+    {#                });#}
+    {#            }#}
+    {##}
+    {#            // Listen for the hx request completion to update the ids#}
+    {#            document.getElementById("collaborator-forms").addEventListener("htmx:afterRequest", function (e) {#}
+    {#                updateEmailInputIds();  // Update the input ids after the new field is added#}
+    {#            });#}
+    {##}
+    {#            // If there's a need to trigger the counter right after rendering the page#}
+    {#            updateEmailInputIds();#}
+    {#        });#}
+    {#    </script>#}
+
+{% endblock %}
+

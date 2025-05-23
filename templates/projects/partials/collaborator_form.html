@@ -1,0 +1,14 @@
+{% block main_block %}
+
+    <label >Email</label>
+    <input type="text" id="email{{ counter }}"
+           name="email" hx-swap="innerHTML" hx-trigger="keyup" style="display: block">
+
+    <button type="button" style="color: #a41515" id="cancel-email-button" name="cancel"
+            hx-on:click="removeLabelAndInput()">Cancel</button>
+
+
+    <script>
+        
+    </script>
+{% endblock %}

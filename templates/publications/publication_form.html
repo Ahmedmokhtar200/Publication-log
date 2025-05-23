@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+{% load static %}
+{% block main_block %}
+    <style>
+        .btn-primary {
+            color: black;
+            background-color: #FED136;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background-color: #FED136;
+        }
+
+    </style>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="custom-form-container p-4 shadow bg-light rounded">
+                    <h2 class="text-center mb-4">Add Publication to Project</h2>
+                    <form class="form-container" action="{% url 'publications:create' project_info.id %}" method="post" enctype="multipart/form-data" novalidate>
+                        {% csrf_token %}
+                        <!-- Title Field -->
+                        <div class="mb-3">
+                            <label for="{{ form.title.id_for_label }}" class="form-label">{{ form.title.label }}</label>
+                            {% render_field form.title class="form-control" placeholder="Enter publication title"%}
+                            {% if form.title.errors %}
+                                <p><strong style="color: #a41515">{{ form.title.errors }}</strong></p>
+                            {% endif %}
+                        </div>
+
+                        <!-- Conference Field -->
+                        <div class="mb-3">
+                            <label for="{{ form.conference.id_for_label }}" class="form-label">{{ form.conference.label }}</label>
+                            {% render_field form.conference class="form-select"%}
+                            {% if form.conference.errors %}
+                                <p><strong style="color: #a41515">{{ form.conference.errors }}</strong></p>
+                            {% endif %}
+                        </div>
+
+                        <!-- Year Field -->
+                        <div class="mb-3">
+                            <label for="{{ form.year.id_for_label }}" class="form-label">{{ form.year.label }}</label>
+                            <input type="date" name="year" class="form-control" required>
+                            {% if form.year.errors %}
+                                <p><strong style="color: #a41515">{{ form.year.errors }}</strong></p>
+                            {% endif %}
+                        </div>
+
+                        <!-- URL Field -->
+                        <div class="mb-3">
+                            <label for="{{ form.url.id_for_label }}" class="form-label">{{ form.url.label }}</label>
+                            {% render_field form.url class="form-control" placeholder="Enter link to your publication"%}
+                            {% if form.url.errors %}
+                                <p><strong style="color: #a41515">{{ form.url.errors }}</strong></p>
+                            {% endif %}
+                        </div>
+
+                        <!-- File Upload Field -->
+                        <div class="mb-3">
+                            <label for="{{ form.file.id_for_label }}" class="form-label">{{ form.file.label }}</label>
+                            {% render_field form.file class="form-control"%}
+                            {% if form.file.errors %}
+                                <p><strong style="color: #a41515">{{ form.file.errors }}</strong></p>
+                            {% endif %}
+                        </div>
+
+                        <!-- Image Upload Field -->
+                        <div class="mb-3">
+                            <label for="{{ form.image.id_for_label }}" class="form-label">{{ form.image.label }}</label>
+                            {% render_field form.image class="form-control"%}
+                            {% if form.image.errors %}
+                                <p><strong style="color: #a41515">{{ form.image.errors }}</strong></p>
+                            {% endif %}
+                        </div>
+
+                        <!-- Hidden Project Info Field -->
+                        <input type="hidden" value="{{ project_info.id }}" name="project_info">
+
+                        <!-- Submit Button -->
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+
+{% block main_block %} 
+    <h3>{{ re }}</h3>
+
+            <div id="collaborator-forms">
+                {% include "publications/partials/collaborator_form.html" with human_id=human_id project_id=project.id %}
+            </div>
+
+    <div id="collaborator-bottom">
+        <button type="button"
+                hx-get="{% url 'collaborator_form' human_id project.id %}"
+                hx-target="#collaborator-forms"
+                hx-swap="beforeend"
+                class="emailbttn"
+                id="add-email-button">
+            Add Email
+        </button>
+        <button type="button" id="submit-all">Next</button>
+        
+        
+        
+    </div>
+
+
+
+
+
+    <script>
+        
+        htmx.on('keyup',function (event){
+            const inputElement = event.target;
+            // Get the id of the input element
+            let emailId = inputElement.id;
+            console.log("Input ID that triggered the keyup:", emailId);
+            const email = document.getElementById(emailId).value;
+            console.log("email value",email)
+
+///////// validations: no duplicate email, change keyup or make a delay ////////////
+            if (email) {
+
+                fetch(`http://127.0.0.1:8000/publications/check-email/?email=${email}`)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error("error")
+                        }
+                        return response.json()
+                    })
+                    .then(data => {
+                        console.log("Data fetched is ", data)
+                        let spanId = emailId.match(/\d+/g);
+                        let msg = data.msg
+                        if(spanId) {
+                            
+                            console.log("Message fetched is ",msg);
+                            console.log("span number ",spanId);
+                            console.log(`span${spanId}`);
+    
+                            const span = document.getElementById(`span${spanId}`);
+                            console.log(span)
+                            span.innerHTML = msg;
+                            
+                        }
+                        else {
+                            
+                            console.log("Message fetched is ",msg);
+                            const span = document.getElementById('span');
+                            console.log(span)
+                            span.innerHTML = msg;
+                        }
+                    })
+            }
+        }) 
+    </script>
+    
+    
+{% endblock %}
+

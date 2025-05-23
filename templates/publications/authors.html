@@ -1,0 +1,137 @@
+ {% extends 'base.html' %}
+
+{% block main_block %}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/habibmhamadi/simple-datatable/dist/css/simple-datatable.min.css">
+    <script src="https://cdn.jsdelivr.net/gh/habibmhamadi/simple-datatable/dist/js/simple-datatable.min.js"></script>
+
+
+    <table id="myTable">
+        <strong style="color: #a41515">don't forget to add yourself if you are author in publication</strong>
+        <thead>
+        <tr>
+            <th class="sortable">Name</th>
+            <th>Email</th>
+            <th>Add</th>
+        </tr>
+        </thead>
+    </table>
+    
+    <button onclick="submitData()">next</button>
+    <script>
+        // Fetch data from the backend using AJAX (fetch API)
+        async function fetchData() {
+            try {
+                const response = await fetch("{% url 'publications:get_authors' publication_id %}");  // Call the Django view endpoint
+                const data = await response.json();  // Parse the JSON data
+                console.log(data)
+
+                
+                
+                // Use the fetched data to populate the table
+                new simpleDataTable('myTable', data, {
+                    searchableColumns: [1],
+                    title: 'Authors',
+                    itemsPerPage: 5,
+                    pageSelection: [5,10], // Selection of items per page
+                    onRowRender: function(data, column) {
+                        // Create a unique button ID for each row using the author's email or another unique field
+                        const buttonId = `btn-${data[0]}`;
+
+                        // Check if the author is already in the selectedAuthors array
+                        const isAdded = selectedAuthors.some(author => author.email === data.email);
+                        const buttonLabel = isAdded ? "Remove" : "Add";
+
+                        column[2] = 
+                            `<td>
+                                 <button id="${buttonId}" onclick="toggleAuthor('${data[0]}', '${data[1]}', '${buttonId}')">
+                                    ${buttonLabel}
+                                 </button>
+                            </td>`
+                        return column
+                    }
+                });  // Call the function with the fetched data
+            
+            } catch (error) {
+                console.error("Error fetching data:", error);
+            }
+        }
+        fetchData();  // Call fetchData when the page loads
+
+        // Array to store the selected authors
+        let selectedAuthors = [];
+        // Function to add or remove the author and update the button label
+        function toggleAuthor(name, email, buttonId) {
+            const button = document.getElementById(buttonId);
+           
+            // Check if the author is already in the array
+            const authorIndex = selectedAuthors.findIndex(author => author.email === email);
+
+            if (authorIndex > -1) {
+                // Author is already in the array, remove them
+                selectedAuthors.splice(authorIndex, 1);
+                button.innerText = "Add";  // Change button label to 'Add'
+            } else {
+                // Author is not in the array, add them
+                selectedAuthors.push({ name, email });
+                button.innerText = "Remove";  // Change button label to 'Remove'
+            }
+
+            console.log("Selected authors:", selectedAuthors);
+        }
+        
+        // Function to submit the ArrayList data
+        function submitData() {
+            console.log("Selected authors:", selectedAuthors);
+
+            // Post data to your Django view (adjust URL as needed)
+            fetch('{% url 'publications:store_authors' publication_id %}', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': getCookie('csrftoken')  // Make sure to send CSRF token
+                },
+                
+                body:JSON.stringify({ authors: selectedAuthors })  // Send the data as JSON
+            
+                
+            
+            })
+                
+                .then(response => response.json())
+                .then(data => {
+                    console.log("Data posted successfully:", data);
+                    // Check if the server response contains a redirect URL
+                    if (data.redirect) {
+                        // Manually handle the redirect by navigating to the new URL
+                        window.location.href = data.redirect;
+                    } else {
+                        // Handle the data returned if it's not a redirect
+                        console.log(data);
+                    }
+                })
+                .catch(error => {
+                    console.error("Error:", error);
+                });
+         
+                
+        }
+
+        // Function to get CSRF token (for Django security)
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+
+    </script>
+    
+{% endblock %}
