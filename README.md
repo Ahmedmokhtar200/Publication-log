@@ -29,7 +29,7 @@ The database was normalized to meet best practices and improve performance and d
 ---
 
 ## 📦 Database Structure
-![ERD Diagram](./database schema.jpg)
+![ERD Diagram](schema.jpg)
 
 The updated schema includes the following key entities:
 
